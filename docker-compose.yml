@@ -1,0 +1,111 @@
+version: "3.9"
+
+services:
+
+  postgres:
+    image: postgres:16
+    container_name: postgres
+    restart: always
+
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: analytics
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+
+    restart: always
+
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+
+    ports:
+      - "5050:80"
+
+    depends_on:
+      - postgres
+
+  metabase:
+    image: metabase/metabase
+    container_name: metabase
+
+    restart: always
+
+    ports:
+      - "3000:3000"
+
+    depends_on:
+      - postgres
+
+
+  airflow-init:
+    image: apache/airflow:2.10.5
+
+    container_name: airflow-init
+
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://admin:admin@postgres/airflow
+
+    command: version
+
+    depends_on:
+      - postgres
+
+  airflow-webserver:
+    image: apache/airflow:2.10.5
+
+    container_name: airflow-webserver
+
+    restart: always
+
+    ports:
+      - "8080:8080"
+
+    command: webserver
+
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://admin:admin@postgres/airflow
+
+      AIRFLOW__CORE__LOAD_EXAMPLES: "False"
+
+    volumes:
+      - ./airflow/dags:/opt/airflow/dags
+
+    depends_on:
+      - postgres
+
+  airflow-scheduler:
+    image: apache/airflow:2.10.5
+
+    container_name: airflow-scheduler
+
+    restart: always
+
+    command: scheduler
+
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://admin:admin@postgres/airflow
+
+    volumes:
+      - ./airflow/dags:/opt/airflow/dags
+
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
