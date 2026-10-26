@@ -63,7 +63,8 @@ services:
       - postgres
 
   airflow-webserver:
-    image: apache/airflow:2.10.5
+
+    build: .
 
     container_name: airflow-webserver
 
@@ -83,12 +84,14 @@ services:
 
     volumes:
       - ./airflow/dags:/opt/airflow/dags
+      - ./Extract:/opt/airflow/extract
 
     depends_on:
       - postgres
 
   airflow-scheduler:
-    image: apache/airflow:2.10.5
+
+    build: .
 
     container_name: airflow-scheduler
 
@@ -103,6 +106,7 @@ services:
 
     volumes:
       - ./airflow/dags:/opt/airflow/dags
+      - ./Extract:/opt/airflow/extract
 
     depends_on:
       - postgres
