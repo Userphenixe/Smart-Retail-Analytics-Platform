@@ -1,0 +1,2 @@
+from Extract.load_api_to_postgres import load_api_to_postgres
+from Extract.cdc_products import simulate_products_cdc
