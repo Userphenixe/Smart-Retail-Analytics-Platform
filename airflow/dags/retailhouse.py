@@ -7,9 +7,10 @@ import sys
 
 sys.path.append("/opt/airflow/extract")
 
-from cdc_products import simulate_products_cdc # type: ignore
-from cdc_users import simulate_users_cdc # type: ignore
-from cdc_carts import simulate_carts_cdc # type: ignore
+from Incremental.cdc_products import simulate_products_cdc # type: ignore
+from Incremental.cdc_users import simulate_users_cdc # type: ignore
+from Incremental.cdc_carts import simulate_carts_cdc # type: ignore
+from Incremental.cdc_recipes import simulate_recipes_cdc # type: ignore
 
 
 with DAG(
@@ -46,5 +47,13 @@ with DAG(
         task_id="generate_carts",
 
         python_callable=simulate_carts_cdc
+
+    )
+
+    generate_recipes = PythonOperator(
+
+        task_id="generate_recipes",
+
+        python_callable=simulate_recipes_cdc
 
     )
