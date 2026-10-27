@@ -94,7 +94,7 @@ def simulate_carts_cdc(nb_records=5):
                         product["discountPercentage"]
                     ),
                     "discountedTotal": line_discounted_total,
-                    "thumbnail": product["thumbnail"]
+                    "thumbnail": None if pd.isna(product["thumbnail"]) else product["thumbnail"]
                 }
             )
 
