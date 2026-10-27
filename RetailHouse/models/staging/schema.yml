@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: stg_carts
+    description: "This staging model is designed to process and transform the raw cart data from the source system."
+    columns:
+      - name: cart_id
+        description: "Unique identifier for each cart."
+        data_test:
+          - not_null
+      - name: id
+        description: "Unique identifier for each product in the cart."
+        data_test:
+          - not_null
+      - name: title
+        description: "Title of the product in the cart."
+      - name: price
+        description: "Price of the product in the cart."
+      - name: quantity
+        description: "Quantity of the product in the cart."
+      - name: total
+        description: "Total cost for the product in the cart (price * quantity)."
+      - name: discounted_total
+        description: "Total cost after applying any discounts."
+      - name: discount_percentage
+        description: "Percentage of discount applied to the product."
+      - name: discounted_price
+        description: "Price of the product after applying the discount."
+      - name: userId
+        description: "Identifier for the user associated with the cart."
+      - name: ingestion_timestamp
+        description: "Timestamp indicating when the data was ingested into the staging model."
