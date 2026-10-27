@@ -1,4 +1,4 @@
 from Extract.load_api_to_postgres import load_api_to_postgres
-from Extract.cdc_products import simulate_products_cdc
-from Extract.cdc_users import simulate_users_cdc
-from Extract.cdc_carts import simulate_carts_cdc
+from Extract.Incremental.cdc_products import simulate_products_cdc
+from Extract.Incremental.cdc_users import simulate_users_cdc
+from Extract.Incremental.cdc_carts import simulate_carts_cdc

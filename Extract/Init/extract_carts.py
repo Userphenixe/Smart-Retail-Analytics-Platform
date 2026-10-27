@@ -1,4 +1,4 @@
-from load_api_to_postgres import load_api_to_postgres
+from Extract.load_api_to_postgres import load_api_to_postgres
 
 load_api_to_postgres(
     endpoint="carts",
