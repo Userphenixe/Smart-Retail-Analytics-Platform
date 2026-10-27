@@ -1,0 +1,32 @@
+version: 2
+
+sources:
+
+  - name: raw
+    description: Raw data source (local Postgres database)
+    schema: raw
+
+    freshness:
+      warn_after: {count: 12, period: hour}
+      error_after: {count: 24, period: hour}
+
+    tables:
+
+      - name: users
+        description: Users data
+        loaded_at_field: ingestion_timestamp
+
+
+      - name: products
+        description: Products data
+        loaded_at_field: ingestion_timestamp
+
+
+      - name: recipes
+        description: Recipes data
+        loaded_at_field: ingestion_timestamp
+
+
+      - name: carts
+        description: Carts data
+        loaded_at_field: ingestion_timestamp
