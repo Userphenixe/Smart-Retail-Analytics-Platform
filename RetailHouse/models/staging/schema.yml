@@ -64,20 +64,53 @@ models:
       - name: availabilitystatus
         description: "Current availability status of the product (e.g., in stock, out of stock)."
       - name: rating
-        description: "Rating given to the product by users."
+        description: "Rating given to the product by customers."
       - name: comment
-        description: "Comment or review provided by users for the product."
+        description: "Comment or review provided by customers for the product."
       - name: reviewdate
         description: "Date when the review was submitted."
       - name: reviewername
-        description: "Name of the user who submitted the review."
+        description: "Name of the customer who submitted the review."
       - name: reviewemail
-        description: "Email of the user who submitted the review."
+        description: "Email of the customer who submitted the review."
       - name: returnpolicy
         description: "Information regarding the return policy for the product."
       - name: minimumorderquantity
         description: "Minimum quantity required to place an order for the product."
       - name: thumbnail
         description: "URL or path to the thumbnail image of the product."
+      - name: ingestion_timestamp
+        description: "Timestamp indicating when the data was ingested into the staging model."
+
+  - name: stg_customers
+    description: "This staging model is designed to process and transform the raw customer data from the source system."
+    columns:
+      - name: customer_id
+        description: "Unique identifier for each customer."
+        data_test:
+          - not_null
+          - unique
+      - name: firstname
+        description: "First name of the customer."
+      - name: lastname
+        description: "Last name of the customer."
+      - name: customername
+        description: "customername chosen by the customer."
+      - name: gender
+        description: "Gender of the customer."
+      - name: email
+        description: "Email address of the customer."
+      - name: dateofbirth
+        description: "Date of birth of the customer."
+      - name: city
+        description: "City where the customer resides."
+      - name: currency
+        description: "Currency used by the customer for transactions."
+      - name: cardtype
+        description: "Type of card used by the customer for transactions."
+      - name: department
+        description: "Department associated with the customer."
+      - name: customer_role
+        description: "Role assigned to the customer (e.g., admin, customer)."
       - name: ingestion_timestamp
         description: "Timestamp indicating when the data was ingested into the staging model."
