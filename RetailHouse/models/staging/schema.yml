@@ -1,6 +1,7 @@
 version: 2
 
 models:
+
   - name: stg_carts
     description: "This staging model is designed to process and transform the raw cart data from the source system."
     columns:
@@ -28,5 +29,55 @@ models:
         description: "Price of the product after applying the discount."
       - name: userId
         description: "Identifier for the user associated with the cart."
+      - name: ingestion_timestamp
+        description: "Timestamp indicating when the data was ingested into the staging model."
+
+        
+  - name: stg_products
+    description: "This staging model is designed to process and transform the raw product data from the the source system."
+    columns:
+      - name: product_id
+        description: "Unique identifier for each product."
+        data_test:
+          - not_null
+          - unique
+      - name: title
+        description: "Title of the product."
+      - name: category
+        description: "Category to which the product belongs."
+      - name: price
+        description: "Price of the product."
+      - name: discountpercentage
+        description: "Percentage of discount applied to the product."
+      - name: stock
+        description: "Number of items available in stock for the product."
+      - name: brand
+        description: "Brand associated with the product."
+      - name: width
+        description: "Width of the product."
+      - name: height
+        description: "Height of the product."
+      - name: depth
+        description: "Depth of the product."
+      - name: shippinginformation
+        description: "Information regarding the shipping options for the product."
+      - name: availabilitystatus
+        description: "Current availability status of the product (e.g., in stock, out of stock)."
+      - name: rating
+        description: "Rating given to the product by users."
+      - name: comment
+        description: "Comment or review provided by users for the product."
+      - name: reviewdate
+        description: "Date when the review was submitted."
+      - name: reviewername
+        description: "Name of the user who submitted the review."
+      - name: reviewemail
+        description: "Email of the user who submitted the review."
+      - name: returnpolicy
+        description: "Information regarding the return policy for the product."
+      - name: minimumorderquantity
+        description: "Minimum quantity required to place an order for the product."
+      - name: thumbnail
+        description: "URL or path to the thumbnail image of the product."
       - name: ingestion_timestamp
         description: "Timestamp indicating when the data was ingested into the staging model."
