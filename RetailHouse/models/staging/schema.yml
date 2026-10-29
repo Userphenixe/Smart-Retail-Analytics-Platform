@@ -114,3 +114,34 @@ models:
         description: "Role assigned to the customer (e.g., admin, customer)."
       - name: ingestion_timestamp
         description: "Timestamp indicating when the data was ingested into the staging model."
+
+  - name: stg_recipes
+    description: "This staging model is designed to process and transform the raw recipe data from the source system."
+    columns:
+      - name: recipe_id
+        description: "Unique identifier for each recipe."
+        data_test:
+          - not_null
+          - unique
+      - name: recipe_name
+        description: "Name of the recipe."
+      - name: prep_time_minutes
+        description: "Preparation time required for the recipe in minutes."
+      - name: cook_time_minutes
+        description: "Cooking time required for the recipe in minutes."
+      - name: servings
+        description: "Number of servings the recipe yields."
+      - name: difficulty
+        description: "Difficulty level of preparing the recipe (e.g., easy, medium, hard)."
+      - name: cuisine
+        description: "Type of cuisine the recipe belongs to (e.g., Italian, Chinese)."
+      - name: calories_per_serving
+        description: "Number of calories per serving of the recipe."
+      - name: userId
+        description: "ID of the customer who created the recipe."
+      - name: rating
+        description: "Rating given to the recipe by users."
+      - name: review_count
+        description: "Count of reviews submitted for the recipe."
+      - name: ingestion_timestamp
+        description: "Timestamp indicating when the data was ingested into the staging model."
