@@ -60,9 +60,13 @@ new_records as (
         brand,
         {% for field_name, field_type in dimensions_fields  %}
 
-        {{ extract_json_object_field(dimensions_column_name, field_name, field_type) }} as {{ field_name }},
+        {{ extract_json_object_field(dimensions_column_name, field_name, field_type) }} as {{ field_name }}
 
-        {% endfor %}
+            {% if not loop.last %},
+    
+            {% endif %}
+
+        {% endfor %},
         "shippingInformation" as shippinginformation,
         "availabilityStatus" as availabilitystatus,
         jsonb_array_elements(reviews::jsonb) as reviews,
@@ -94,9 +98,13 @@ decompressed as (
 
         {% for field_name, field_type in reviews_fields  %}
 
-            {{ extract_json_fields(reviews_column_name, field_name, field_type) }} as {{ field_name }},
+            {{ extract_json_fields(reviews_column_name, field_name, field_type) }} as {{ field_name }}
 
-        {% endfor %}
+            {% if not loop.last %},
+    
+            {% endif %}
+
+        {% endfor %},
 
         returnpolicy,
         minimumorderquantity,
