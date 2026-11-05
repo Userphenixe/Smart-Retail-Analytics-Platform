@@ -1,7 +1,10 @@
 from datetime import datetime
 
+from charset_normalizer import cd
+
 from airflow import DAG
 from airflow.operators.python import PythonOperator # type: ignore
+from airflow.operators.bash import BashOperator # type: ignore
 
 import sys
 
@@ -57,3 +60,19 @@ with DAG(
         python_callable=simulate_recipes_cdc
 
     )
+
+    # dbt_build = BashOperator(
+    # task_id="dbt_build",
+    # bash_command="""
+    # cd /opt/airflow/dbt/RetailHouse &&
+    # dbt build
+    # """
+    # )
+
+
+    # [
+    # generate_products,
+    # generate_users,
+    # generate_carts,
+    # generate_recipes
+    # ] >> dbt_build
