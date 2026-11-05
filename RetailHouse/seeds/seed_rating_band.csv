@@ -1,0 +1,4 @@
+min_rating,max_rating,rating_band
+0,2,Poor
+2,4,Average
+4,5,Excellent
