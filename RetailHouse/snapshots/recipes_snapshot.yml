@@ -1,0 +1,13 @@
+snapshots:
+  - name: recipes_snapshot
+
+    relation: ref('stg_recipes')
+
+    config:
+      schema: snapshots
+
+      strategy: timestamp
+
+      unique_key: recipe_id
+
+      updated_at: ingestion_timestamp

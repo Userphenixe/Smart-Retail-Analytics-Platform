@@ -1,0 +1,13 @@
+snapshots:
+  - name: customers_snapshot
+
+    relation: ref('stg_customers')
+
+    config:
+      schema: snapshots
+
+      strategy: timestamp
+
+      unique_key: customer_id
+
+      updated_at: ingestion_timestamp
