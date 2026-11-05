@@ -1,0 +1,121 @@
+version: 2
+
+models:
+  - name: dim_customer
+    description: "Customer dimension containing customer identity and profile attributes."
+    columns:
+      - name: customer_id
+        description: "Unique identifier for the customer."
+        data_tests:
+          - not_null
+          - unique
+      - name: full_name
+        description: "Customer's first and last name combined."
+      - name: gender
+        description: "Customer's gender."
+      - name: age
+        description: "Customer's age in completed years."
+      - name: age_group
+        description: "Age band assigned to the customer."
+      - name: city_of_birth
+        description: "City associated with the customer in the source data."
+
+  - name: dim_date
+    description: "Calendar dimension covering dates from 2025-01-01 through 2030-12-31."
+    columns:
+      - name: date_key
+        description: "Integer date key in YYYYMMDD format."
+        data_tests:
+          - not_null
+          - unique
+      - name: date_day
+        description: "Calendar date."
+        data_tests:
+          - not_null
+          - unique
+      - name: year
+        description: "Calendar year."
+      - name: quarter
+        description: "Calendar quarter, formatted as Q1 through Q4."
+      - name: month
+        description: "Calendar month number."
+      - name: month_name
+        description: "Calendar month name."
+      - name: week_of_year
+        description: "Week number of the year."
+      - name: day_of_month
+        description: "Day number within the month."
+      - name: day_of_week
+        description: "ISO day of the week, where Monday is 1 and Sunday is 7."
+      - name: day_name
+        description: "Name of the day of the week."
+      - name: is_weekend
+        description: "Whether the date falls on Saturday or Sunday."
+
+  - name: dim_product
+    description: "Product dimension enriched with product review attributes."
+    columns:
+      - name: product_id
+        description: "Unique identifier for the product."
+        data_tests:
+          - not_null
+          - unique
+      - name: product_name
+        description: "Product title."
+      - name: category
+        description: "Product category."
+      - name: department
+        description: "Department associated with the product."
+      - name: price
+        description: "Product price."
+      - name: stock
+        description: "Number of units currently in stock."
+      - name: rating
+        description: "Rating given to the product by the reviewer."
+      - name: rating_band
+        description: "Rating band assigned using the rating range seed."
+      - name: review_date
+        description: "Date the product review was submitted."
+      - name: reviewer_name
+        description: "Name of the person who submitted the review."
+
+  - name: dim_recipe
+    description: "Recipe dimension enriched with difficulty and review attributes."
+    columns:
+      - name: recipe_id
+        description: "Unique identifier for the recipe."
+        data_tests:
+          - not_null
+          - unique
+      - name: recipe_name
+        description: "Name of the recipe."
+      - name: difficulty
+        description: "Recipe difficulty level."
+      - name: difficulty_score
+        description: "Numeric score associated with the recipe difficulty."
+      - name: cuisine
+        description: "Cuisine type of the recipe."
+      - name: avg_rating
+        description: "Average recipe rating from the source data."
+      - name: review_count
+        description: "Number of reviews for the recipe."
+
+  - name: fct_sales
+    description: "Sales facts aggregated by cart and customer, including gross, discount, and net amounts."
+    columns:
+      - name: cart_id
+        description: "Identifier of the cart containing the sales."
+        data_tests:
+          - not_null
+      - name: customer_name
+        description: "Full name of the customer who owns the cart."
+      - name: total_products
+        description: "Number of distinct products in the cart."
+      - name: total_quantity
+        description: "Total quantity of products in the cart."
+      - name: gross_amount
+        description: "Total amount before discounts."
+      - name: discount_amount
+        description: "Total discount amount applied to the cart."
+      - name: net_amount
+        description: "Total amount after discounts."
