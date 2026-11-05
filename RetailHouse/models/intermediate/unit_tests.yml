@@ -1,0 +1,89 @@
+unit_tests:
+
+  - name: test_product_volume
+
+    model: int_products_enriched
+
+    given:
+
+      - input: ref('stg_products')
+        rows:
+
+          - product_id: 1
+            width: 10
+            height: 2
+            depth: 5
+            category: beauty
+            availabilitystatus: In Stock
+
+      - input: ref('seed_product_categories')
+        rows:
+          - category: beauty
+            department: Personal Care
+
+      - input: ref('seed_availability_status')
+        rows:
+          - availability_status: In Stock
+            is_available: true
+
+    expect:
+
+      rows:
+
+        - product_id: 1
+          product_volume: 100.00
+  
+  - name: test_adult
+
+    model: int_customer_profile
+
+    given:
+      - input: ref('stg_customers')
+        rows:
+          - customer_id: 2
+            dateofbirth: '1985-01-01'
+
+    expect:
+      rows:
+        - customer_id: 2
+          age_group: middle-aged
+
+  - name: test_recipe_difficulty_score
+
+    model: int_recipes_enriched
+
+    given:
+
+      - input: ref('stg_recipes')
+        rows:
+          - recipe_id: 1
+            recipe_name: Test Recipe
+            difficulty: Easy
+            cuisine: Italian
+            customer_id: 1
+            rating: 4.5
+            review_count: 10
+
+      - input: ref('seed_recipe_difficulty')
+        rows:
+          - difficulty: Easy
+            difficulty_score: 1
+
+      - input: ref('stg_customers')
+        rows:
+          - customer_id: 1
+            firstname: Hamza
+            lastname: Abbas
+
+    expect:
+
+      rows:
+        - recipe_id: 1
+          recipe_name: Test Recipe
+          difficulty: Easy
+          difficulty_score: 1
+          cuisine: Italian
+          customer_id: 1
+          customer_name: Hamza Abbas
+          avg_rating: 4.5
+          review_count: 10
