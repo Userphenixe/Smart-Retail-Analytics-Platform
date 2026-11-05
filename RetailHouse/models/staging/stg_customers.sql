@@ -38,7 +38,30 @@ new_records as (
 
         )
 
-),exploded as (
+),
+
+deduplicated as (
+
+    select *
+
+    from (
+
+        select
+            *,
+            row_number() over (
+                partition by id
+                order by ingestion_timestamp desc
+            ) as row_num
+
+        from new_records
+
+    ) t
+
+    where row_num = 1
+
+),
+
+exploded as (
 
     select
         id as customer_id,
@@ -66,7 +89,7 @@ new_records as (
         "role" as customer_role,
         ingestion_timestamp
 
-    from new_records
+    from deduplicated
 
 )
 

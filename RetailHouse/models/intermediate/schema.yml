@@ -1,0 +1,116 @@
+version: 2
+
+models:
+  - name: int_customer_profile
+    description: "Customer profile enriched with a full name, age, and age group."
+    columns:
+      - name: customer_id
+        description: "Unique identifier for the customer."
+        data_tests:
+          - not_null
+          - unique
+      - name: full_name
+        description: "Customer's first and last name combined."
+      - name: gender
+        description: "Customer's gender."
+      - name: age
+        description: "Customer's age in completed years."
+      - name: age_group
+        description: "Age band assigned to the customer."
+      - name: city_of_birth
+        description: "City associated with the customer in the source data."
+
+  - name: int_product_reviews
+    description: "Product reviews enriched with rating bands and normalized review dates."
+    columns:
+      - name: product_id
+        description: "Unique identifier for the reviewed product."
+        data_tests:
+          - not_null
+          - unique
+      - name: rating
+        description: "Rating given to the product."
+      - name: rating_band
+        description: "Rating band assigned using the rating range seed."
+      - name: comment
+        description: "Review comment for the product."
+      - name: review_date
+        description: "Date the product review was submitted."
+      - name: reviewer_name
+        description: "Name of the person who submitted the review."
+
+  - name: int_products_enriched
+    description: "Products enriched with availability and category seed data, including product volume."
+    columns:
+      - name: product_id
+        description: "Unique identifier for the product."
+        data_tests:
+          - not_null
+          - unique
+      - name: product_name
+        description: "Product title."
+      - name: category
+        description: "Product category."
+      - name: department
+        description: "Department associated with the product."
+      - name: price
+        description: "Product price."
+      - name: stock
+        description: "Number of units currently in stock."
+      - name: availabilitystatus
+        description: "Availability status from the source product data."
+      - name: is_available
+        description: "Availability flag derived from the availability status seed."
+      - name: product_volume
+        description: "Product volume calculated from width, height, and depth."
+      - name: rating
+        description: "Product rating."
+
+  - name: int_recipes_enriched
+    description: "Recipes enriched with difficulty scores and the name of the associated customer."
+    columns:
+      - name: recipe_id
+        description: "Unique identifier for the recipe."
+        data_tests:
+          - not_null
+          - unique
+      - name: recipe_name
+        description: "Name of the recipe."
+      - name: difficulty
+        description: "Recipe difficulty level."
+      - name: difficulty_score
+        description: "Numeric score associated with the recipe difficulty."
+      - name: cuisine
+        description: "Cuisine type of the recipe."
+      - name: customer_id
+        description: "Identifier of the customer associated with the recipe."
+      - name: customer_name
+        description: "First and last name of the associated customer."
+      - name: avg_rating
+        description: "Recipe rating from the source data."
+      - name: review_count
+        description: "Number of reviews for the recipe."
+
+  - name: int_sales
+    description: "Cart product lines enriched with product department and customer name."
+    columns:
+      - name: cart_id
+        description: "Identifier of the cart containing the product."
+        data_tests:
+          - not_null
+      - name: product_id
+        description: "Identifier of the product in the cart."
+        data_tests:
+          - not_null
+      - name: product_name
+        description: "Name of the product in the cart."
+      - name: product_price
+        description: "Price of the product in the cart."
+      - name: product_quantity
+        description: "Quantity of the product in the cart."
+      - name: discountpercentage
+        description: "Discount percentage applied to the product."
+      - name: product_department
+        description: "Department associated with the product."
+      - name: customer_name
+        description: "Full name of the customer who owns the cart."
